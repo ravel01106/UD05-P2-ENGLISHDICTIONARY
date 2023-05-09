@@ -102,39 +102,72 @@ public class Dictionary {
 
     public void existWord(String word) {
         word = formatWord(word);
+
+        if (word.isEmpty() || word.isBlank()) {
+
+            System.out.println("Error, has not entered any words");
+            return;
+
+        }
+
         String character = word.toLowerCase().substring(0, 1);
         String msg = "The word " + word + " not found in the dictionary.";
+
         if (hasSameKey(character)) {
+
             if (hasSameWord(word, character)) {
+
                 msg = "The word " + word + " has been found.";
+
             }
+
         }
         System.out.println(msg);
     }
 
     public void showInitialAvailable() {
+
         System.out.println("Initial Available: ");
+
         dictionaryEnglish.keySet().forEach((key) -> {
             System.out.println("-> " + key);
         });
+
     }
 
     public void showWordsWithInitial(String character) {
+
         character = formatWord(character);
+        String msg = "The character " + character + " is not an initial.";
+
         if (character.isEmpty() || character.isBlank()) {
 
             System.out.println("Error, has not entered any character");
             return;
 
         }
+
         if (character.length() == 1) {
-            System.out.println("Words which initial is " + character + ":");
-            dictionaryEnglish.get(character).forEach((word) -> {
-                System.out.println("-> " + word);
-            });
-        } else {
-            System.out.println("The character " + character + " is not an initial.");
+
+            if (hasSameKey(character)) {
+
+                System.out.println("Words which initial is " + character + ":");
+
+                dictionaryEnglish.get(character).forEach((word) -> {
+                    System.out.println("-> " + word);
+                });
+
+                msg = "";
+
+            } else {
+
+                msg = "The character " + character + " not found in the dictionary.";
+
+            }
+
         }
+
+        System.out.println(msg);
 
     }
 
