@@ -100,4 +100,23 @@ public class Dictionary {
         System.out.println(msg);
     }
 
+    public void existWord(String word) {
+        word = formatWord(word);
+        String character = word.toLowerCase().substring(0, 1);
+        String msg = "The word " + word + " not found in the dictionary.";
+        if (hasSameKey(character)) {
+            if (hasSameWord(word, character)) {
+                msg = "The word " + word + " has been found.";
+            }
+        }
+        System.out.println(msg);
+    }
+
+    public void showInitialAvailable() {
+        System.out.println("Initial Available: ");
+        dictionaryEnglish.keySet().forEach((key) -> {
+            System.out.println("-> " + key);
+        });
+    }
+
 }
