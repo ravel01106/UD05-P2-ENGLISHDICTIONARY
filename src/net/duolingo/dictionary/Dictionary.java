@@ -16,9 +16,11 @@ public class Dictionary {
     }
 
     public void addWord(String word) {
+        word = formatWord(word);
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
         boolean hasSameKey = false;
+        word = formatWord(word);
 
         if (dictionaryEnglish.size() == 0) {
 
@@ -49,6 +51,45 @@ public class Dictionary {
             }
         }
 
+    }
+
+    public String formatWord(String word) {
+        return word.toLowerCase().trim();
+    }
+
+    public void deleteWord(String word) {
+        word = formatWord(word);
+        String character = word.toLowerCase().substring(0, 1);
+        Set<String> arrayWords = new HashSet<>();
+        boolean hasSameKey = false;
+        String msg = "There is no word that can be deleted";
+
+        if (dictionaryEnglish.size() != 0) {
+            Set<String> keys = dictionaryEnglish.keySet();
+
+            for (String key : keys) {
+                if (key.equals(character)) {
+                    hasSameKey = true;
+                }
+            }
+
+            if (hasSameKey) {
+                arrayWords = dictionaryEnglish.get(character);
+                boolean hasSameValue = false;
+                for (String wordInArray : arrayWords) {
+                    if (wordInArray.equals(word)) {
+                        hasSameValue = true;
+                    }
+                }
+                if (hasSameValue) {
+                    arrayWords.remove(word);
+                    dictionaryEnglish.put(character, arrayWords);
+                    msg = "The word " + word + " has been deleted correctly";
+                }
+
+            }
+        }
+        System.out.println(msg);
     }
 
 }
