@@ -20,21 +20,11 @@ public class Dictionary {
     }
 
     private Boolean hasSameKey(String character) {
-        for (String key : dictionaryEnglish.keySet()) {
-            if (key.equals(character)) {
-                return true;
-            }
-        }
-        return false;
+        return dictionaryEnglish.containsKey(character);
     }
 
     private Boolean hasSameWord(String word, String character) {
-        for (String wordInArray : dictionaryEnglish.get(character)) {
-            if (wordInArray.equals(word)) {
-                return true;
-            }
-        }
-        return false;
+        return dictionaryEnglish.get(character).contains(word);
     }
 
     public void addWord(String word) {
@@ -56,14 +46,14 @@ public class Dictionary {
 
         } else {
 
-            if (!hasSameKey(character)) {
+            if (hasSameKey(character)) {
 
+                arrayWords = dictionaryEnglish.get(character);
                 arrayWords.add(word);
                 dictionaryEnglish.put(character, arrayWords);
 
             } else {
 
-                arrayWords = dictionaryEnglish.get(character);
                 arrayWords.add(word);
                 dictionaryEnglish.put(character, arrayWords);
 
