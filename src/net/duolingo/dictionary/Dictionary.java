@@ -15,12 +15,39 @@ public class Dictionary {
         return dictionaryEnglish;
     }
 
+    private String formatWord(String word) {
+        return word.toLowerCase().trim();
+    }
+
+    private Boolean hasSameKey(String character) {
+        for (String key : dictionaryEnglish.keySet()) {
+            if (key.equals(character)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean hasSameWord(String word, String character) {
+        for (String wordInArray : dictionaryEnglish.get(character)) {
+            if (wordInArray.equals(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addWord(String word) {
+        if (word.isEmpty() || word.isBlank()) {
+
+            System.out.println("Error, has not entered any words");
+            return;
+
+        }
+
         word = formatWord(word);
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
-        boolean hasSameKey = false;
-        word = formatWord(word);
 
         if (dictionaryEnglish.size() == 0) {
 
@@ -29,15 +56,7 @@ public class Dictionary {
 
         } else {
 
-            Set<String> keys = dictionaryEnglish.keySet();
-
-            for (String key : keys) {
-                if (key.equals(character)) {
-                    hasSameKey = true;
-                }
-            }
-
-            if (!hasSameKey) {
+            if (!hasSameKey(character)) {
 
                 arrayWords.add(word);
                 dictionaryEnglish.put(character, arrayWords);
@@ -49,46 +68,45 @@ public class Dictionary {
                 dictionaryEnglish.put(character, arrayWords);
 
             }
+
         }
 
-    }
+        System.out.println("The word " + word + " has been registered correctly.");
 
-    public String formatWord(String word) {
-        return word.toLowerCase().trim();
     }
 
     public void deleteWord(String word) {
+
+        if (word.isEmpty() || word.isBlank()) {
+
+            System.out.println("Error, has not entered any words");
+            return;
+
+        }
+
         word = formatWord(word);
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
-        boolean hasSameKey = false;
         String msg = "There is no word that can be deleted";
 
         if (dictionaryEnglish.size() != 0) {
-            Set<String> keys = dictionaryEnglish.keySet();
 
-            for (String key : keys) {
-                if (key.equals(character)) {
-                    hasSameKey = true;
-                }
-            }
+            if (hasSameKey(character)) {
 
-            if (hasSameKey) {
                 arrayWords = dictionaryEnglish.get(character);
-                boolean hasSameValue = false;
-                for (String wordInArray : arrayWords) {
-                    if (wordInArray.equals(word)) {
-                        hasSameValue = true;
-                    }
-                }
-                if (hasSameValue) {
+
+                if (hasSameWord(word, character)) {
+
                     arrayWords.remove(word);
                     dictionaryEnglish.put(character, arrayWords);
                     msg = "The word " + word + " has been deleted correctly";
+
                 }
 
             }
+
         }
+
         System.out.println(msg);
     }
 
