@@ -119,4 +119,23 @@ public class Dictionary {
         });
     }
 
+    public void showWordsWithInitial(String character) {
+        character = formatWord(character);
+        if (character.isEmpty() || character.isBlank()) {
+
+            System.out.println("Error, has not entered any character");
+            return;
+
+        }
+        if (character.length() == 1) {
+            System.out.println("Words which initial is " + character + ":");
+            dictionaryEnglish.get(character).forEach((word) -> {
+                System.out.println("-> " + word);
+            });
+        } else {
+            System.out.println("The character " + character + " is not an initial.");
+        }
+
+    }
+
 }
