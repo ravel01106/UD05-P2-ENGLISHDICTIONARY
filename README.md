@@ -1,1 +1,11 @@
-# Unidad 05 Práctica 02
+# Unit 05 Exercise 02
+
+## Purpose of the project:
+
+This project has the purpose to help a Duolingo's business and create a dictionary's application for users.
+
+## Class implemented:
+
+In it, has been implemented this class:
+
+[Dictionary class](./docs/DICTIONARY.md).
