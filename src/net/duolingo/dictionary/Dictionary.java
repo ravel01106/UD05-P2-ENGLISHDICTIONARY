@@ -38,26 +38,16 @@ public class Dictionary {
         word = formatWord(word);
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
+        if (hasSameKey(character)) {
 
-        if (dictionaryEnglish.size() == 0) {
-
+            arrayWords = dictionaryEnglish.get(character);
             arrayWords.add(word);
             dictionaryEnglish.put(character, arrayWords);
 
         } else {
 
-            if (hasSameKey(character)) {
-
-                arrayWords = dictionaryEnglish.get(character);
-                arrayWords.add(word);
-                dictionaryEnglish.put(character, arrayWords);
-
-            } else {
-
-                arrayWords.add(word);
-                dictionaryEnglish.put(character, arrayWords);
-
-            }
+            arrayWords.add(word);
+            dictionaryEnglish.put(character, arrayWords);
 
         }
 
@@ -79,19 +69,15 @@ public class Dictionary {
         Set<String> arrayWords = new HashSet<>();
         String msg = "There is no word that can be deleted";
 
-        if (dictionaryEnglish.size() != 0) {
+        if (hasSameKey(character)) {
 
-            if (hasSameKey(character)) {
+            arrayWords = dictionaryEnglish.get(character);
 
-                arrayWords = dictionaryEnglish.get(character);
+            if (hasSameWord(word, character)) {
 
-                if (hasSameWord(word, character)) {
-
-                    arrayWords.remove(word);
-                    dictionaryEnglish.put(character, arrayWords);
-                    msg = "The word " + word + " has been deleted correctly";
-
-                }
+                arrayWords.remove(word);
+                dictionaryEnglish.put(character, arrayWords);
+                msg = "The word " + word + " has been deleted correctly";
 
             }
 
