@@ -15,14 +15,6 @@ public class Dictionary {
     public Dictionary() {
     }
 
-    public Map<String, Set<String>> getDictionaryOneWord() {
-        return dictionaryOneWord;
-    }
-
-    public Map<String, Set<String>> getDictionaryPhrasalVerbs() {
-        return dictionaryPhrasalVerbs;
-    }
-
     private String formatStr(String word) {
         return word.toLowerCase().trim();
     }
