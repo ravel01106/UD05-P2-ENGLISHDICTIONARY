@@ -6,26 +6,47 @@ import java.util.Map;
 import java.util.Set;
 
 public class Dictionary {
-    private Map<String, Set<String>> dictionaryEnglish = new HashMap<>();
+    private Map<String, Set<String>> dictionaryOneWord = new HashMap<>();
+    private Map<String, Set<String>> dictionaryPhrasalVerbs = new HashMap<>();
     private Set<String> listWords = new HashSet<>();
 
     public Dictionary() {
     }
 
-    public Map<String, Set<String>> getDictionaryEnglish() {
-        return dictionaryEnglish;
+    public Map<String, Set<String>> getDictionaryOneWord() {
+        return dictionaryOneWord;
+    }
+
+    public Map<String, Set<String>> getDictionaryPhrasalVerbs() {
+        return dictionaryPhrasalVerbs;
     }
 
     private String formatStr(String word) {
         return word.toLowerCase().trim();
     }
 
-    private Boolean hasSameKey(String character) {
-        return dictionaryEnglish.containsKey(character);
+    private Boolean hasSameKeyOneWord(String character) {
+        return dictionaryOneWord.containsKey(character);
     }
 
-    private Boolean hasSameWord(String word, String character) {
-        return dictionaryEnglish.get(character).contains(word);
+    private Boolean hasSameKeyPhrasalVerbs(String character) {
+        return dictionaryPhrasalVerbs.containsKey(character);
+    }
+
+    private Boolean hasSameWordOneWord(String word, String character) {
+        return dictionaryOneWord.get(character).contains(word);
+    }
+
+    private Boolean hasSameWordPhrasalVerbs(String word, String character) {
+        return dictionaryPhrasalVerbs.get(character).contains(word);
+    }
+
+    private Boolean hasBlanks(String word) {
+        int countBlank = word.indexOf(" ");
+        if (countBlank != -1) {
+            return true;
+        }
+        return false;
     }
 
     public void addWord(String word) {
@@ -39,17 +60,34 @@ public class Dictionary {
         word = formatStr(word);
         String character = word.toLowerCase().substring(0, 1);
 
-        if (hasSameKey(character)) {
-            listWords = dictionaryEnglish.get(character);
-            listWords.add(word);
-            dictionaryEnglish.put(character, listWords);
+        listWords = new HashSet<>();
+        listWords.add(word);
 
+        if (hasBlanks(word)) {
+            if (hasSameKeyPhrasalVerbs(character)) {
+
+                listWords = dictionaryPhrasalVerbs.get(character);
+                listWords.add(word);
+                dictionaryPhrasalVerbs.put(character, listWords);
+
+            } else {
+
+                dictionaryPhrasalVerbs.put(character, listWords);
+
+            }
         } else {
 
-            listWords = new HashSet<>();
-            listWords.add(word);
-            dictionaryEnglish.put(character, listWords);
+            if (hasSameKeyOneWord(character)) {
 
+                listWords = dictionaryOneWord.get(character);
+                listWords.add(word);
+                dictionaryOneWord.put(character, listWords);
+
+            } else {
+
+                dictionaryOneWord.put(character, listWords);
+
+            }
         }
 
         System.out.println("The word " + word + " has been registered correctly.");
@@ -69,18 +107,22 @@ public class Dictionary {
         String character = word.toLowerCase().substring(0, 1);
         String msg = "There is no word that can be deleted";
 
-        if (hasSameKey(character)) {
-
-            listWords = dictionaryEnglish.get(character);
-
-            if (hasSameWord(word, character)) {
-
-                listWords.remove(word);
-                dictionaryEnglish.put(character, listWords);
-                msg = "The word " + word + " has been deleted correctly";
-
+        if (hasBlanks(word)) {
+            if (hasSameKeyPhrasalVerbs(character)) {
+                listWords = dictionaryPhrasalVerbs.get(character);
+                if (hasSameWordPhrasalVerbs(word, character)) {
+                    listWords.remove(word);
+                    dictionaryPhrasalVerbs.put(character, listWords);
+                }
             }
-
+        } else {
+            if (hasSameKeyOneWord(character)) {
+                listWords = dictionaryOneWord.get(character);
+                if (hasSameWordOneWord(word, character)) {
+                    listWords.remove(word);
+                    dictionaryOneWord.put(character, listWords);
+                }
+            }
         }
 
         System.out.println(msg);
@@ -97,27 +139,34 @@ public class Dictionary {
         word = formatStr(word);
         String character = word.toLowerCase().substring(0, 1);
         String msg = "The word " + word + " not found in the dictionary.";
+        if (hasBlanks(word)) {
+            if (hasSameKeyPhrasalVerbs(character) && hasSameWordPhrasalVerbs(word, character)) {
+                msg = "The phrasal verb " + word + " has been found.";
+            }
 
-        if (hasSameKey(character)) {
-
-            if (hasSameWord(word, character)) {
-
+        } else {
+            if (hasSameKeyOneWord(character) && hasSameWordOneWord(word, character)) {
                 msg = "The word " + word + " has been found.";
 
             }
-
         }
+
         System.out.println(msg);
     }
 
     public void showInitialAvailable() {
 
-        System.out.println("Initial Available: ");
+        System.out.println("Initial Available One Word: ");
 
-        dictionaryEnglish.keySet().forEach((key) -> {
+        dictionaryOneWord.keySet().forEach((key) -> {
             System.out.println("-> " + key);
         });
 
+        System.out.println("Initial Available Phrasal Verbs: ");
+
+        dictionaryPhrasalVerbs.keySet().forEach((key) -> {
+            System.out.println("-> " + key);
+        });
     }
 
     public void showWordsWithInitial(String character) {
@@ -133,12 +182,25 @@ public class Dictionary {
         character = formatStr(character);
 
         if (character.length() == 1) {
+            if (hasSameKeyPhrasalVerbs(character)) {
+                System.out.println("Phrasal verbs which initial is " + character + ":");
 
-            if (hasSameKey(character)) {
+                dictionaryPhrasalVerbs.get(character).forEach((word) -> {
+                    System.out.println("-> " + word);
+                });
+
+                msg = "";
+            } else {
+
+                msg = "The character " + character + " not found in the dictionary.";
+
+            }
+
+            if (hasSameKeyOneWord(character)) {
 
                 System.out.println("Words which initial is " + character + ":");
 
-                dictionaryEnglish.get(character).forEach((word) -> {
+                dictionaryOneWord.get(character).forEach((word) -> {
                     System.out.println("-> " + word);
                 });
 
