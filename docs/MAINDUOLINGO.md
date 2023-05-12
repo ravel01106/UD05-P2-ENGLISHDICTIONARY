@@ -25,18 +25,22 @@ This class had an executable class which it contains a menu with different optio
   <br><br>
 
 - **Option 4: Show initial available**
+
   In this option, the showInitialAvailable method of the dictionary is called.
   <br><br>
 
 - **Option 5: View words by initial**
+
   In this option, first the program asks for the character that you want to know that how many words have this initial in the dictonary and then, the showWordsWithInitial method of the dictionary is called.
   <br><br>
 
 - **Option 6: Close program**
+
   In this options, the menu finished and the program closed.
   <br><br>
 
 - **Option default**
+
   In this option, the program shows a message saying that you must choose one of the correct options.
   <br><br>
 
