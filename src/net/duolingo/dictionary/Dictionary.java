@@ -47,7 +47,7 @@ public class Dictionary {
 
         }
 
-        word = formatWord(word);
+        word = formatWord(askWord());
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
         if (hasSameKey(character)) {
@@ -76,7 +76,7 @@ public class Dictionary {
 
         }
 
-        word = formatWord(word);
+        word = formatWord(askWord());
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
         String msg = "There is no word that can be deleted";
@@ -99,7 +99,7 @@ public class Dictionary {
     }
 
     public void existWord(String word) {
-        word = formatWord(word);
+        word = formatWord(askWord());
 
         if (word.isEmpty() || word.isBlank()) {
 
@@ -135,7 +135,7 @@ public class Dictionary {
 
     public void showWordsWithInitial(String character) {
 
-        character = formatWord(character);
+        character = formatWord(askCharacter());
         String msg = "The character " + character + " is not an initial.";
 
         if (character.isEmpty() || character.isBlank()) {
