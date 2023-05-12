@@ -15,106 +15,106 @@ public class Dictionary {
     public Dictionary() {
     }
 
-    private String formatStr(String word) {
-        return word.toLowerCase().trim();
+    private String formatStr(String phrase) {
+        return phrase.toLowerCase().trim();
     }
 
-    private Boolean hasSameKeyOneWord(String character) {
-        return dictionaryOneWord.containsKey(character);
+    private Boolean hasSameKeyOneWord(String initial) {
+        return dictionaryOneWord.containsKey(initial);
     }
 
-    private Boolean hasSameKeyPhrasalVerbs(String character) {
-        return dictionaryPhrasalVerbs.containsKey(character);
+    private Boolean hasSameKeyPhrasalVerbs(String initial) {
+        return dictionaryPhrasalVerbs.containsKey(initial);
     }
 
-    private Boolean hasSameWordOneWord(String word, String character) {
-        return dictionaryOneWord.get(character).contains(word);
+    private Boolean hasSamePhraseOneWord(String phrase, String initial) {
+        return dictionaryOneWord.get(initial).contains(phrase);
     }
 
-    private Boolean hasSameWordPhrasalVerbs(String word, String character) {
-        return dictionaryPhrasalVerbs.get(character).contains(word);
+    private Boolean hasSamePhrasePhrasalVerbs(String phrase, String initial) {
+        return dictionaryPhrasalVerbs.get(initial).contains(phrase);
     }
 
-    private Boolean hasBlanks(String word) {
-        int countBlank = word.indexOf(" ");
+    private Boolean hasBlanks(String phrase) {
+        int countBlank = phrase.indexOf(" ");
         if (countBlank != -1) {
             return true;
         }
         return false;
     }
 
-    public void addWord(String word) {
-        if (word.isEmpty() || word.isBlank()) {
+    public void addWord(String phrase) {
+        if (phrase.isEmpty() || phrase.isBlank()) {
 
             System.out.println("Error, has not entered any words");
             return;
 
         }
 
-        word = formatStr(word);
-        String character = word.toLowerCase().substring(0, 1);
+        phrase = formatStr(phrase);
+        String initial = phrase.toLowerCase().substring(0, 1);
 
         listWords = new HashSet<>();
-        listWords.add(word);
+        listWords.add(phrase);
 
-        if (hasBlanks(word)) {
-            if (hasSameKeyPhrasalVerbs(character)) {
+        if (hasBlanks(phrase)) {
+            if (hasSameKeyPhrasalVerbs(initial)) {
 
-                listWords = dictionaryPhrasalVerbs.get(character);
-                listWords.add(word);
-                dictionaryPhrasalVerbs.put(character, listWords);
+                listWords = dictionaryPhrasalVerbs.get(initial);
+                listWords.add(phrase);
+                dictionaryPhrasalVerbs.put(initial, listWords);
 
             } else {
 
-                dictionaryPhrasalVerbs.put(character, listWords);
+                dictionaryPhrasalVerbs.put(initial, listWords);
 
             }
         } else {
 
-            if (hasSameKeyOneWord(character)) {
+            if (hasSameKeyOneWord(initial)) {
 
-                listWords = dictionaryOneWord.get(character);
-                listWords.add(word);
-                dictionaryOneWord.put(character, listWords);
+                listWords = dictionaryOneWord.get(initial);
+                listWords.add(phrase);
+                dictionaryOneWord.put(initial, listWords);
 
             } else {
 
-                dictionaryOneWord.put(character, listWords);
+                dictionaryOneWord.put(initial, listWords);
 
             }
         }
 
-        System.out.println("The word " + word + " has been registered correctly.");
+        System.out.println("The word " + phrase + " has been registered correctly.");
 
     }
 
-    public void deleteWord(String word) {
+    public void deleteWord(String phrase) {
 
-        if (word.isEmpty() || word.isBlank()) {
+        if (phrase.isEmpty() || phrase.isBlank()) {
 
             System.out.println("Error, has not entered any words");
             return;
 
         }
 
-        word = formatStr(word);
-        String character = word.toLowerCase().substring(0, 1);
+        phrase = formatStr(phrase);
+        String initial = phrase.toLowerCase().substring(0, 1);
         String msg = "There is no word that can be deleted";
 
-        if (hasBlanks(word)) {
-            if (hasSameKeyPhrasalVerbs(character)) {
-                listWords = dictionaryPhrasalVerbs.get(character);
-                if (hasSameWordPhrasalVerbs(word, character)) {
-                    listWords.remove(word);
-                    dictionaryPhrasalVerbs.put(character, listWords);
+        if (hasBlanks(phrase)) {
+            if (hasSameKeyPhrasalVerbs(initial)) {
+                listWords = dictionaryPhrasalVerbs.get(initial);
+                if (hasSamePhrasePhrasalVerbs(phrase, initial)) {
+                    listWords.remove(phrase);
+                    dictionaryPhrasalVerbs.put(initial, listWords);
                 }
             }
         } else {
-            if (hasSameKeyOneWord(character)) {
-                listWords = dictionaryOneWord.get(character);
-                if (hasSameWordOneWord(word, character)) {
-                    listWords.remove(word);
-                    dictionaryOneWord.put(character, listWords);
+            if (hasSameKeyOneWord(initial)) {
+                listWords = dictionaryOneWord.get(initial);
+                if (hasSamePhraseOneWord(phrase, initial)) {
+                    listWords.remove(phrase);
+                    dictionaryOneWord.put(initial, listWords);
                 }
             }
         }
@@ -122,25 +122,25 @@ public class Dictionary {
         System.out.println(msg);
     }
 
-    public void existWord(String word) {
+    public void existWord(String phrase) {
 
-        if (word.isEmpty() || word.isBlank()) {
+        if (phrase.isEmpty() || phrase.isBlank()) {
 
             System.out.println("Error, has not entered any words");
             return;
 
         }
-        word = formatStr(word);
-        String character = word.toLowerCase().substring(0, 1);
-        String msg = "The word " + word + " not found in the dictionary.";
-        if (hasBlanks(word)) {
-            if (hasSameKeyPhrasalVerbs(character) && hasSameWordPhrasalVerbs(word, character)) {
-                msg = "The phrasal verb " + word + " has been found.";
+        phrase = formatStr(phrase);
+        String initial = phrase.toLowerCase().substring(0, 1);
+        String msg = "The word " + phrase + " not found in the dictionary.";
+        if (hasBlanks(phrase)) {
+            if (hasSameKeyPhrasalVerbs(initial) && hasSamePhrasePhrasalVerbs(phrase, initial)) {
+                msg = "The phrasal verb " + phrase + " has been found.";
             }
 
         } else {
-            if (hasSameKeyOneWord(character) && hasSameWordOneWord(word, character)) {
-                msg = "The word " + word + " has been found.";
+            if (hasSameKeyOneWord(initial) && hasSamePhraseOneWord(phrase, initial)) {
+                msg = "The word " + phrase + " has been found.";
 
             }
         }
@@ -163,38 +163,38 @@ public class Dictionary {
         });
     }
 
-    public void showWordsWithInitial(String character) {
-        String msg = "The character " + character + " not found in the dictionary.";
+    public void showWordsWithInitial(String initial) {
+        String msg = "The initial " + initial + " not found in the dictionary.";
 
-        if (character.isEmpty() || character.isBlank()) {
+        if (initial.isEmpty() || initial.isBlank()) {
 
-            System.out.println("Error, has not entered any character");
+            System.out.println("Error, has not entered any initial");
             return;
 
         }
 
         ArrayList<String> arrayWords = new ArrayList<>();
-        character = formatStr(character);
+        initial = formatStr(initial);
 
-        if (character.length() == 1) {
+        if (initial.length() == 1) {
 
-            if (hasSameKeyPhrasalVerbs(character)) {
+            if (hasSameKeyPhrasalVerbs(initial)) {
 
-                for (String word : dictionaryPhrasalVerbs.get(character)) {
+                for (String word : dictionaryPhrasalVerbs.get(initial)) {
                     arrayWords.add(word);
                 }
 
             }
 
-            if (hasSameKeyOneWord(character)) {
+            if (hasSameKeyOneWord(initial)) {
 
-                for (String word : dictionaryOneWord.get(character)) {
+                for (String word : dictionaryOneWord.get(initial)) {
                     arrayWords.add(word);
                 }
 
             }
 
-            msg = "The word with " + character + " are: \n";
+            msg = "The word with " + initial + " are: \n";
             Collections.sort(arrayWords);
 
             for (String word : arrayWords) {
