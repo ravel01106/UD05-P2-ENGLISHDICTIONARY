@@ -3,9 +3,11 @@ package net.duolingo.dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Dictionary {
+    final Scanner KEYBOARD = new Scanner(System.in);
     private Map<String, Set<String>> dictionaryEnglish = new HashMap<>();
 
     public Dictionary() {
@@ -13,6 +15,16 @@ public class Dictionary {
 
     public Map<String, Set<String>> getDictionaryEnglish() {
         return dictionaryEnglish;
+    }
+
+    public String askWord() {
+        System.out.println("What is the word?");
+        return KEYBOARD.nextLine();
+    }
+
+    public String askCharacter() {
+        System.out.println("What is the character?");
+        return KEYBOARD.nextLine();
     }
 
     private String formatWord(String word) {
