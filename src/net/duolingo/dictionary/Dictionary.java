@@ -27,7 +27,7 @@ public class Dictionary {
         return KEYBOARD.nextLine();
     }
 
-    private String formatWord(String word) {
+    private String formatStr(String word) {
         return word.toLowerCase().trim();
     }
 
@@ -39,7 +39,8 @@ public class Dictionary {
         return dictionaryEnglish.get(character).contains(word);
     }
 
-    public void addWord(String word) {
+    public void addWord() {
+        String word = askWord();
         if (word.isEmpty() || word.isBlank()) {
 
             System.out.println("Error, has not entered any words");
@@ -47,7 +48,7 @@ public class Dictionary {
 
         }
 
-        word = formatWord(askWord());
+        word = formatStr(word);
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
         if (hasSameKey(character)) {
@@ -67,7 +68,8 @@ public class Dictionary {
 
     }
 
-    public void deleteWord(String word) {
+    public void deleteWord() {
+        String word = askWord();
 
         if (word.isEmpty() || word.isBlank()) {
 
@@ -76,7 +78,7 @@ public class Dictionary {
 
         }
 
-        word = formatWord(askWord());
+        word = formatStr(word);
         String character = word.toLowerCase().substring(0, 1);
         Set<String> arrayWords = new HashSet<>();
         String msg = "There is no word that can be deleted";
@@ -98,8 +100,8 @@ public class Dictionary {
         System.out.println(msg);
     }
 
-    public void existWord(String word) {
-        word = formatWord(askWord());
+    public void existWord() {
+        String word = askWord();
 
         if (word.isEmpty() || word.isBlank()) {
 
@@ -107,7 +109,7 @@ public class Dictionary {
             return;
 
         }
-
+        word = formatStr(word);
         String character = word.toLowerCase().substring(0, 1);
         String msg = "The word " + word + " not found in the dictionary.";
 
@@ -133,9 +135,8 @@ public class Dictionary {
 
     }
 
-    public void showWordsWithInitial(String character) {
-
-        character = formatWord(askCharacter());
+    public void showWordsWithInitial() {
+        String character = askCharacter();
         String msg = "The character " + character + " is not an initial.";
 
         if (character.isEmpty() || character.isBlank()) {
@@ -144,6 +145,8 @@ public class Dictionary {
             return;
 
         }
+
+        character = formatStr(character);
 
         if (character.length() == 1) {
 
