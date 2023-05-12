@@ -17,12 +17,12 @@ public class Dictionary {
         return dictionaryEnglish;
     }
 
-    public String askWord() {
+    private String askWord() {
         System.out.println("What is the word?");
         return KEYBOARD.nextLine();
     }
 
-    public String askCharacter() {
+    private String askCharacter() {
         System.out.println("What is the character?");
         return KEYBOARD.nextLine();
     }
