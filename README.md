@@ -8,5 +8,6 @@ This project has the purpose to help a Duolingo's business and create a dictiona
 
 In it, has been implemented theses classes:
 
-[Dictionary class](./docs/DICTIONARY.md).
-[MainDuolingo class](./docs/MAINDUOLINGO.md).
+- [Dictionary class](./docs/DICTIONARY.md).
+
+- [MainDuolingo class](./docs/MAINDUOLINGO.md).

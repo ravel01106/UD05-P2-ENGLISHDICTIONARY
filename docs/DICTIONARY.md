@@ -51,3 +51,6 @@
   If the dictionary **contains the initial of the character**, a message will be sent showing a list of words that start with this initial. **If not**, a message will be sent indicating that the character doesn't exist in it.
 
   Beside, it will be checked if it **is empty** or only **contains blank spaces**.
+  <br><br>
+
+If you want to return, [click here](../README.md).

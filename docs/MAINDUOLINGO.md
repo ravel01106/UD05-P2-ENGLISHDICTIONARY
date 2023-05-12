@@ -2,12 +2,12 @@
 
 <br>
 
-# **Definition**
+# **Definition:**
 
 This class had an executable class which it contains a menu with different options to accede the methods of the dictionary.
 <br><br>
 
-# **Options of the menu**
+# **Options of the menu:**
 
 - **Option 1: Add word**
 
@@ -33,9 +33,11 @@ This class had an executable class which it contains a menu with different optio
   <br><br>
 
 - **Option 6: Close program**
-  In this options, the menu finished and the program closed
+  In this options, the menu finished and the program closed.
   <br><br>
 
 - **Option default**
   In this option, the program shows a message saying that you must choose one of the correct options.
   <br><br>
+
+If you want to return, [click here](../README.md).
