@@ -19,6 +19,16 @@ public class MainDuolingo {
         System.out.println(msg);
     }
 
+    public static String askWord() {
+        System.out.println("What is the word?");
+        return KEYBOARD.nextLine();
+    }
+
+    public static String askCharacter() {
+        System.out.println("What is the character?");
+        return KEYBOARD.nextLine();
+    }
+
     public static void main(String[] args) {
         Dictionary dictionary = new Dictionary();
         String option = "3";
@@ -27,19 +37,19 @@ public class MainDuolingo {
             option = KEYBOARD.nextLine();
             switch (option) {
                 case "1":
-                    dictionary.addWord();
+                    dictionary.addWord(askWord());
                     break;
                 case "2":
-                    dictionary.deleteWord();
+                    dictionary.deleteWord(askWord());
                     break;
                 case "3":
-                    dictionary.existWord();
+                    dictionary.existWord(askWord());
                     break;
                 case "4":
                     dictionary.showInitialAvailable();
                     break;
                 case "5":
-                    dictionary.showWordsWithInitial();
+                    dictionary.showWordsWithInitial(askCharacter());
                     break;
                 case "6":
                     System.out.println("Have a good day!");

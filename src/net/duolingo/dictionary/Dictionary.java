@@ -3,11 +3,9 @@ package net.duolingo.dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
 public class Dictionary {
-    final Scanner KEYBOARD = new Scanner(System.in);
     private Map<String, Set<String>> dictionaryEnglish = new HashMap<>();
     private Set<String> listWords = new HashSet<>();
 
@@ -16,16 +14,6 @@ public class Dictionary {
 
     public Map<String, Set<String>> getDictionaryEnglish() {
         return dictionaryEnglish;
-    }
-
-    private String askWord() {
-        System.out.println("What is the word?");
-        return KEYBOARD.nextLine();
-    }
-
-    private String askCharacter() {
-        System.out.println("What is the character?");
-        return KEYBOARD.nextLine();
     }
 
     private String formatStr(String word) {
@@ -40,8 +28,7 @@ public class Dictionary {
         return dictionaryEnglish.get(character).contains(word);
     }
 
-    public void addWord() {
-        String word = askWord();
+    public void addWord(String word) {
         if (word.isEmpty() || word.isBlank()) {
 
             System.out.println("Error, has not entered any words");
@@ -69,8 +56,7 @@ public class Dictionary {
 
     }
 
-    public void deleteWord() {
-        String word = askWord();
+    public void deleteWord(String word) {
 
         if (word.isEmpty() || word.isBlank()) {
 
@@ -100,8 +86,7 @@ public class Dictionary {
         System.out.println(msg);
     }
 
-    public void existWord() {
-        String word = askWord();
+    public void existWord(String word) {
 
         if (word.isEmpty() || word.isBlank()) {
 
@@ -135,8 +120,7 @@ public class Dictionary {
 
     }
 
-    public void showWordsWithInitial() {
-        String character = askCharacter();
+    public void showWordsWithInitial(String character) {
         String msg = "The character " + character + " is not an initial.";
 
         if (character.isEmpty() || character.isBlank()) {
