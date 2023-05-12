@@ -9,6 +9,7 @@ import java.util.Set;
 public class Dictionary {
     final Scanner KEYBOARD = new Scanner(System.in);
     private Map<String, Set<String>> dictionaryEnglish = new HashMap<>();
+    private Set<String> listWords = new HashSet<>();
 
     public Dictionary() {
     }
@@ -50,17 +51,17 @@ public class Dictionary {
 
         word = formatStr(word);
         String character = word.toLowerCase().substring(0, 1);
-        Set<String> arrayWords = new HashSet<>();
-        if (hasSameKey(character)) {
 
-            arrayWords = dictionaryEnglish.get(character);
-            arrayWords.add(word);
-            dictionaryEnglish.put(character, arrayWords);
+        if (hasSameKey(character)) {
+            listWords = dictionaryEnglish.get(character);
+            listWords.add(word);
+            dictionaryEnglish.put(character, listWords);
 
         } else {
 
-            arrayWords.add(word);
-            dictionaryEnglish.put(character, arrayWords);
+            listWords = new HashSet<>();
+            listWords.add(word);
+            dictionaryEnglish.put(character, listWords);
 
         }
 
@@ -80,17 +81,16 @@ public class Dictionary {
 
         word = formatStr(word);
         String character = word.toLowerCase().substring(0, 1);
-        Set<String> arrayWords = new HashSet<>();
         String msg = "There is no word that can be deleted";
 
         if (hasSameKey(character)) {
 
-            arrayWords = dictionaryEnglish.get(character);
+            listWords = dictionaryEnglish.get(character);
 
             if (hasSameWord(word, character)) {
 
-                arrayWords.remove(word);
-                dictionaryEnglish.put(character, arrayWords);
+                listWords.remove(word);
+                dictionaryEnglish.put(character, listWords);
                 msg = "The word " + word + " has been deleted correctly";
 
             }
