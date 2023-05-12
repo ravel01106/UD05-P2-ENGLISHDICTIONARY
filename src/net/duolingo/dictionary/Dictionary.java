@@ -29,8 +29,7 @@ public class Dictionary {
 
     private Boolean hasBlanks(String phrase) {
 
-        int countBlank = phrase.indexOf(" ");
-        if (countBlank != -1) {
+        if (phrase.indexOf(" ") != -1) {
             return true;
         }
         return false;
