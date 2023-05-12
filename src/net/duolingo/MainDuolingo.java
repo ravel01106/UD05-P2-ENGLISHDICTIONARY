@@ -38,13 +38,9 @@ public class MainDuolingo {
             switch (option) {
                 case "1":
                     dictionary.addWord(askWord());
-                    System.out.println(dictionary.getDictionaryOneWord());
-                    System.out.println(dictionary.getDictionaryPhrasalVerbs());
                     break;
                 case "2":
                     dictionary.deleteWord(askWord());
-                    System.out.println(dictionary.getDictionaryOneWord());
-                    System.out.println(dictionary.getDictionaryPhrasalVerbs());
                     break;
                 case "3":
                     dictionary.existWord(askWord());

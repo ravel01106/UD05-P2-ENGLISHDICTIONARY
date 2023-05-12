@@ -1,5 +1,7 @@
 package net.duolingo.dictionary;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -162,7 +164,7 @@ public class Dictionary {
             System.out.println("-> " + key);
         });
 
-        System.out.println("Initial Available Phrasal Verbs: ");
+        System.out.println("\nInitial Available Phrasal Verbs: ");
 
         dictionaryPhrasalVerbs.keySet().forEach((key) -> {
             System.out.println("-> " + key);
@@ -170,7 +172,7 @@ public class Dictionary {
     }
 
     public void showWordsWithInitial(String character) {
-        String msg = "The character " + character + " is not an initial.";
+        String msg = "The character " + character + " not found in the dictionary.";
 
         if (character.isEmpty() || character.isBlank()) {
 
@@ -179,37 +181,32 @@ public class Dictionary {
 
         }
 
+        ArrayList<String> arrayWords = new ArrayList<>();
         character = formatStr(character);
 
         if (character.length() == 1) {
+
             if (hasSameKeyPhrasalVerbs(character)) {
-                System.out.println("Phrasal verbs which initial is " + character + ":");
 
-                dictionaryPhrasalVerbs.get(character).forEach((word) -> {
-                    System.out.println("-> " + word);
-                });
-
-                msg = "";
-            } else {
-
-                msg = "The character " + character + " not found in the dictionary.";
+                for (String word : dictionaryPhrasalVerbs.get(character)) {
+                    arrayWords.add(word);
+                }
 
             }
 
             if (hasSameKeyOneWord(character)) {
 
-                System.out.println("Words which initial is " + character + ":");
+                for (String word : dictionaryOneWord.get(character)) {
+                    arrayWords.add(word);
+                }
 
-                dictionaryOneWord.get(character).forEach((word) -> {
-                    System.out.println("-> " + word);
-                });
+            }
 
-                msg = "";
+            msg = "The word with " + character + " are: \n";
+            Collections.sort(arrayWords);
 
-            } else {
-
-                msg = "The character " + character + " not found in the dictionary.";
-
+            for (String word : arrayWords) {
+                msg += "-> " + word + ".\n";
             }
 
         }
