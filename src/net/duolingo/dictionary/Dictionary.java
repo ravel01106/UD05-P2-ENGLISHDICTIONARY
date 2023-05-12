@@ -19,20 +19,12 @@ public class Dictionary {
         return phrase.toLowerCase().trim();
     }
 
-    private Boolean hasSameKeyOneWord(String initial) {
-        return dictionaryOneWord.containsKey(initial);
+    private Boolean hasSameKey(String initial, Map<String, Set<String>> dictionary) {
+        return dictionary.containsKey(initial);
     }
 
-    private Boolean hasSameKeyPhrasalVerbs(String initial) {
-        return dictionaryPhrasalVerbs.containsKey(initial);
-    }
-
-    private Boolean hasSamePhraseOneWord(String phrase, String initial) {
-        return dictionaryOneWord.get(initial).contains(phrase);
-    }
-
-    private Boolean hasSamePhrasePhrasalVerbs(String phrase, String initial) {
-        return dictionaryPhrasalVerbs.get(initial).contains(phrase);
+    private Boolean hasSamePhrase(String initial, String phrase, Map<String, Set<String>> dictionary) {
+        return dictionary.get(initial).contains(phrase);
     }
 
     private Boolean hasBlanks(String phrase) {
@@ -54,12 +46,13 @@ public class Dictionary {
 
         phrase = formatStr(phrase);
         String initial = phrase.toLowerCase().substring(0, 1);
+        String msg = "The word " + phrase + " has been added correctly.";
 
         listWords = new HashSet<>();
         listWords.add(phrase);
 
         if (hasBlanks(phrase)) {
-            if (hasSameKeyPhrasalVerbs(initial)) {
+            if (hasSameKey(initial, dictionaryPhrasalVerbs)) {
                 listWords = dictionaryPhrasalVerbs.get(initial);
                 listWords.add(phrase);
                 dictionaryPhrasalVerbs.put(initial, listWords);
@@ -68,9 +61,10 @@ public class Dictionary {
                 dictionaryPhrasalVerbs.put(initial, listWords);
 
             }
+            msg = "The phrasal verb " + phrase + " has been added correctly.";
         } else {
 
-            if (hasSameKeyOneWord(initial)) {
+            if (hasSameKey(initial, dictionaryOneWord)) {
                 listWords = dictionaryOneWord.get(initial);
                 listWords.add(phrase);
                 dictionaryOneWord.put(initial, listWords);
@@ -81,7 +75,7 @@ public class Dictionary {
             }
         }
 
-        System.out.println("The word " + phrase + " has been registered correctly.");
+        System.out.println(msg);
 
     }
 
@@ -99,22 +93,24 @@ public class Dictionary {
 
         if (hasBlanks(phrase)) {
 
-            if (hasSameKeyPhrasalVerbs(initial)) {
+            if (hasSameKey(initial, dictionaryPhrasalVerbs)) {
                 listWords = dictionaryPhrasalVerbs.get(initial);
 
-                if (hasSamePhrasePhrasalVerbs(phrase, initial)) {
+                if (hasSamePhrase(initial, phrase, dictionaryPhrasalVerbs)) {
                     listWords.remove(phrase);
                     dictionaryPhrasalVerbs.put(initial, listWords);
+                    msg = "The phrasal verb " + phrase + " has been removed correctly.";
                 }
             }
         } else {
 
-            if (hasSameKeyOneWord(initial)) {
+            if (hasSameKey(initial, dictionaryOneWord)) {
                 listWords = dictionaryOneWord.get(initial);
 
-                if (hasSamePhraseOneWord(phrase, initial)) {
+                if (hasSamePhrase(initial, phrase, dictionaryOneWord)) {
                     listWords.remove(phrase);
                     dictionaryOneWord.put(initial, listWords);
+                    msg = "The word " + phrase + " has been removed correctly.";
                 }
 
             }
@@ -137,12 +133,12 @@ public class Dictionary {
         String msg = "The word " + phrase + " not found in the dictionary.";
 
         if (hasBlanks(phrase)) {
-            if (hasSameKeyPhrasalVerbs(initial) && hasSamePhrasePhrasalVerbs(phrase, initial)) {
+            if (hasSameKey(initial, dictionaryPhrasalVerbs) && hasSamePhrase(initial, phrase, dictionaryPhrasalVerbs)) {
                 msg = "The phrasal verb " + phrase + " has been found.";
             }
 
         } else {
-            if (hasSameKeyOneWord(initial) && hasSamePhraseOneWord(phrase, initial)) {
+            if (hasSameKey(initial, dictionaryOneWord) && hasSamePhrase(initial, phrase, dictionaryOneWord)) {
                 msg = "The word " + phrase + " has been found.";
 
             }
@@ -181,7 +177,7 @@ public class Dictionary {
 
         if (initial.length() == 1) {
 
-            if (hasSameKeyPhrasalVerbs(initial)) {
+            if (hasSameKey(initial, dictionaryPhrasalVerbs)) {
 
                 for (String word : dictionaryPhrasalVerbs.get(initial)) {
                     arrayWords.add(word);
@@ -189,7 +185,7 @@ public class Dictionary {
 
             }
 
-            if (hasSameKeyOneWord(initial)) {
+            if (hasSameKey(initial, dictionaryOneWord)) {
 
                 for (String word : dictionaryOneWord.get(initial)) {
                     arrayWords.add(word);
