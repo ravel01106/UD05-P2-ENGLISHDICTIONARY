@@ -36,19 +36,20 @@ public class Dictionary {
     }
 
     private Boolean hasBlanks(String phrase) {
+
         int countBlank = phrase.indexOf(" ");
         if (countBlank != -1) {
             return true;
         }
         return false;
+
     }
 
     public void addWord(String phrase) {
-        if (phrase.isEmpty() || phrase.isBlank()) {
 
+        if (phrase.isEmpty() || phrase.isBlank()) {
             System.out.println("Error, has not entered any words");
             return;
-
         }
 
         phrase = formatStr(phrase);
@@ -59,26 +60,22 @@ public class Dictionary {
 
         if (hasBlanks(phrase)) {
             if (hasSameKeyPhrasalVerbs(initial)) {
-
                 listWords = dictionaryPhrasalVerbs.get(initial);
                 listWords.add(phrase);
                 dictionaryPhrasalVerbs.put(initial, listWords);
 
             } else {
-
                 dictionaryPhrasalVerbs.put(initial, listWords);
 
             }
         } else {
 
             if (hasSameKeyOneWord(initial)) {
-
                 listWords = dictionaryOneWord.get(initial);
                 listWords.add(phrase);
                 dictionaryOneWord.put(initial, listWords);
 
             } else {
-
                 dictionaryOneWord.put(initial, listWords);
 
             }
@@ -91,7 +88,6 @@ public class Dictionary {
     public void deleteWord(String phrase) {
 
         if (phrase.isEmpty() || phrase.isBlank()) {
-
             System.out.println("Error, has not entered any words");
             return;
 
@@ -102,20 +98,25 @@ public class Dictionary {
         String msg = "There is no word that can be deleted";
 
         if (hasBlanks(phrase)) {
+
             if (hasSameKeyPhrasalVerbs(initial)) {
                 listWords = dictionaryPhrasalVerbs.get(initial);
+
                 if (hasSamePhrasePhrasalVerbs(phrase, initial)) {
                     listWords.remove(phrase);
                     dictionaryPhrasalVerbs.put(initial, listWords);
                 }
             }
         } else {
+
             if (hasSameKeyOneWord(initial)) {
                 listWords = dictionaryOneWord.get(initial);
+
                 if (hasSamePhraseOneWord(phrase, initial)) {
                     listWords.remove(phrase);
                     dictionaryOneWord.put(initial, listWords);
                 }
+
             }
         }
 
@@ -130,9 +131,11 @@ public class Dictionary {
             return;
 
         }
+
         phrase = formatStr(phrase);
         String initial = phrase.toLowerCase().substring(0, 1);
         String msg = "The word " + phrase + " not found in the dictionary.";
+
         if (hasBlanks(phrase)) {
             if (hasSameKeyPhrasalVerbs(initial) && hasSamePhrasePhrasalVerbs(phrase, initial)) {
                 msg = "The phrasal verb " + phrase + " has been found.";
